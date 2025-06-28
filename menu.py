@@ -3,6 +3,7 @@
 import pygame
 import sys
 from piano import Piano
+from game import Game
 
 def start_menu():
     pygame.init()
@@ -42,7 +43,10 @@ def start_menu():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if play_button.collidepoint(event.pos):
                     pygame.quit()
-                    Piano().play()
+                    game = Game()
+                    game.run()
                 elif freeplay_button.collidepoint(event.pos):
                     pygame.quit()
-                    Piano.play()
+                    piano = Piano()
+                    piano.play()
+
