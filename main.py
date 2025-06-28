@@ -1,15 +1,8 @@
-from piano import Piano
-from game import Game
+from piano import* 
+import menu
 
 def main():
-    mode = input("Choose mode (piano/game): ").strip().lower()
-
-    if mode == "game":
-        game = Game()
-        game.run()
-    else:
-        piano = Piano()
-        piano.play()
+    menu.start_menu()
 
 if __name__ == "__main__":
     main()
