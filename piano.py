@@ -3,6 +3,7 @@ import pygame
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0, 150, 255)
+BACK = (115, 147, 179)
 
 class Piano:
     
@@ -55,7 +56,7 @@ class Piano:
                 self.black_keys.append(rect)
 
     def draw_keys(self, pressed_white, pressed_black):
-        self.screen.fill(BLACK)
+        self.screen.fill(BACK)
 
         for i, rect in enumerate(self.white_keys):
             color = BLUE if i == pressed_white else WHITE
