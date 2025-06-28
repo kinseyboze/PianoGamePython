@@ -7,25 +7,31 @@ class Game:
         self.sequence = ["G4", "Gb4", "B4", "E4"]
         self.input_index = 0
         self.font = pygame.font.SysFont(None, 48)
+        
+        self.treble_clef = pygame.image.load("assets/images/treble.png").convert_alpha()
+        self.treble_clef = pygame.transform.smoothscale(self.treble_clef, (80, 180))
+
 
     def draw_sheet_music(self):
         start_x = 100
         start_y = 200  # Y position of the top staff line (F5)
         line_spacing = 25
-        note_spacing = 70
+        note_spacing = 80
 
         # Draw 5 staff lines (top line = F5)
         for i in range(5):
             y = start_y + i * line_spacing
             pygame.draw.line(self.piano.screen, (0, 0, 0), (start_x, y), (start_x + 1000, y), 2)
+            
+        self.piano.screen.blit(self.treble_clef, (start_x + 10, start_y - 35))
 
         # Draw note circles and labels
         for idx, note in enumerate(self.sequence):
             x = start_x + 150 + idx * note_spacing
             y = self.get_note_y(note, start_y, line_spacing)
-            color = (0, 255, 0) if idx == self.input_index else (255, 255, 255)
-            pygame.draw.circle(self.piano.screen, color, (x, int(y)), 10)
-            label = self.font.render(note, True, (255, 255, 255))
+            color = (0, 255, 0) if idx == self.input_index else (0, 0, 0)
+            pygame.draw.circle(self.piano.screen, color, (x, int(y)), 15)
+            label = self.font.render(note, True, (0, 0, 0))
             self.piano.screen.blit(label, (x - 20, int(y) + 20))
 
     def get_note_y(self, note, top_y, spacing):
