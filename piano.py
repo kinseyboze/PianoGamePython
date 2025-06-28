@@ -5,10 +5,33 @@ BLACK = (0, 0, 0)
 BLUE = (0, 150, 255)
 
 class Piano:
+    
+    sounds = {}
+    white_notes = ["F3", "G3", "A3", "B3", "C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5"]
+    black_notes = ["Gb3", "Ab3", "Bb3", "Db4", "Eb4", "Gb4", "Ab4", "Bb4", "Db5", "Eb4"]
+
+    
     def __init__(self):
         pygame.init()
+        
+        # sound stuff
+        pygame.mixer.init()
+        
+        def load_sound(key, filename):
+            try:
+                self.sounds[key] = pygame.mixer.Sound(filename)
+            except pygame.error as message:
+                print('Cannot load sound:', filename)
+                raise SystemExit(message)
+
+        for i in self.white_notes:
+            load_sound(i, f"assets/sounds/{i}.wav")  
+
+        for i in self.black_notes:
+            load_sound(i, f"assets/sounds/{i}.wav")
+        
         self.screen = pygame.display.set_mode((1200, 900))
-        pygame.display.set_caption("Visual Piano")
+        pygame.display.set_caption("Piano Game")
         self.white_keys = []
         self.black_keys = []
         self.create_keys()
@@ -25,7 +48,7 @@ class Piano:
             self.white_keys.append(rect)
 
         # Create black keys (skip E and B)
-        skip = [2, 6, 9, 13]  # Indices after which there are no black keys
+        skip = [3, 7, 10, 13]  # Indices after which there are no black keys
         for i in range(14):
             if i not in skip:
                 rect = pygame.Rect(((i + 1) * white_key_width - black_key_width // 2) + 100, 350, black_key_width, black_key_height)
@@ -65,6 +88,7 @@ class Piano:
                     for i, rect in enumerate(self.black_keys):
                         if rect.collidepoint(event.pos):
                             pressed_black = i
+                            self.sounds[self.black_notes[i]].play()
                             break
 
                     # If no black key was clicked, check white keys
@@ -72,6 +96,7 @@ class Piano:
                         for i, rect in enumerate(self.white_keys):
                             if rect.collidepoint(event.pos):
                                 pressed_white = i
+                                self.sounds[self.white_notes[i]].play()
                                 break
 
                 elif event.type == pygame.MOUSEBUTTONUP:
