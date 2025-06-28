@@ -8,7 +8,7 @@ class Piano:
     
     sounds = {}
     white_notes = ["F3", "G3", "A3", "B3", "C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5"]
-    black_notes = ["Gb3", "Ab3", "Bb3", "Db4", "Eb4", "Gb4", "Ab4", "Bb4", "Db5", "Eb4"]
+    black_notes = ["Gb3", "Ab3", "Bb3", "Db4", "Eb4", "Gb4", "Ab4", "Bb4", "Db5", "Eb5"]
 
     
     def __init__(self):
@@ -48,7 +48,7 @@ class Piano:
             self.white_keys.append(rect)
 
         # Create black keys (skip E and B)
-        skip = [3, 7, 10, 13]  # Indices after which there are no black keys
+        skip = [3, 6, 10, 13]  # Indices after which there are no black keys
         for i in range(14):
             if i not in skip:
                 rect = pygame.Rect(((i + 1) * white_key_width - black_key_width // 2) + 100, 350, black_key_width, black_key_height)
