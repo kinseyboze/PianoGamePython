@@ -44,14 +44,14 @@ class Piano:
 
         # Create white keys
         for i in range(14):  # C to B
-            rect = pygame.Rect((i * white_key_width) + 100, 350, white_key_width, white_key_height)
+            rect = pygame.Rect((i * white_key_width) + 100, 550, white_key_width, white_key_height)
             self.white_keys.append(rect)
 
         # Create black keys (skip E and B)
         skip = [3, 6, 10, 13]  # Indices after which there are no black keys
         for i in range(14):
             if i not in skip:
-                rect = pygame.Rect(((i + 1) * white_key_width - black_key_width // 2) + 100, 350, black_key_width, black_key_height)
+                rect = pygame.Rect(((i + 1) * white_key_width - black_key_width // 2) + 100, 550, black_key_width, black_key_height)
                 self.black_keys.append(rect)
 
     def draw_keys(self, pressed_white, pressed_black):
